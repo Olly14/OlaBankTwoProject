@@ -8,11 +8,13 @@ using Bank.App.Models;
 using Bank.Data.Infrastructure.Repository;
 using Bank.Data.Infrastructure.Repository.IDropDownListsRepository;
 using Bank.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.App.Controllers
 {
+    [AllowAnonymous]
     public class RegistrationsController : Controller
     {
         private readonly IRepository<AppUser> _appUserRepository;
@@ -48,6 +50,7 @@ namespace Bank.App.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Registration()
         {
             var newAppUserRegistration = new RegistrationViewModel();
