@@ -63,7 +63,7 @@
 
     @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
     {
-        <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-primary">Edit</a>
+        <a asp-action="Edit" asp-route-id="@Model.AccUriKey" class="btn btn-primary">Edit</a>
     }
     |
     @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
