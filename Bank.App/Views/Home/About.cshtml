@@ -1,4 +1,13 @@
-﻿@{
+﻿@inject SignInManager<AppUser> signInManager
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
     ViewData["Title"] = "About";
 }
 <h2>@ViewData["Title"]</h2>

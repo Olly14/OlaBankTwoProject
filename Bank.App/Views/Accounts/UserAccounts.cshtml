@@ -31,7 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.AccountOwner)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.AccountTypeName)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfAccounts)
             </th>
@@ -67,6 +69,10 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.AccountOwner)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountTypeName)
             </td>
 
             <td>
