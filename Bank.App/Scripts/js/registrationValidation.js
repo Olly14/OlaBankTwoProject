@@ -161,7 +161,7 @@
         }
     }
     var validateDateOfBirthMatches = function () {
-        var requiredPattern = new RegExp("^(0[1-9]|[12][0-9]|3[01])[- \/.](0[1-9]|1[012])[- \/.](19|20)\d\d$");
+        var requiredPattern = new RegExp("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$");
         var isAMatch = requiredPattern.test($('#DateOfBirthInputId'));
         if (!isAMatch) {
 
@@ -696,6 +696,7 @@
             validateTownInput();
             validatePostcodeInput();
             validatePostcodeMatched();
+            validateDateOfBirthInput()
             validateDateOfBirthMatches();
             validateCountryIdInput();
             validateGenderIdInput();
