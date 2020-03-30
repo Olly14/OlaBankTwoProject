@@ -17,10 +17,11 @@ namespace Bank.App.Controllers
     public class HomeController : Controller
     {
         private readonly IPopulateDatabaseWithData _populateDatabaseWithData;
-
-        public HomeController(IPopulateDatabaseWithData populateDatabaseWithData)
+        private readonly UserManager<AppUser> _userManager;
+        public HomeController(IPopulateDatabaseWithData populateDatabaseWithData, UserManager<AppUser> userManager)
         {
             _populateDatabaseWithData = populateDatabaseWithData;
+            _userManager = userManager;
         }
 
         //public async Task<IActionResult> Index()
