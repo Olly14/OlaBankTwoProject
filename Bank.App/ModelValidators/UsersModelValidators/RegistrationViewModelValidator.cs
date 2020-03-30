@@ -38,10 +38,10 @@ namespace Bank.App.ModelValidators.UsersModelValidators
                 .NotEmpty().WithMessage("'Email' is required")
                 .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
                 .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
-            RuleFor(au => au.EmailConfirmed)
-                .NotEmpty().WithMessage("'Email' is required")
-                .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
-                .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
+            //RuleFor(au => au.EmailConfirmed)
+            //    .NotEmpty().WithMessage("'Email' is required")
+            //    .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+            //    .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
             RuleFor(au => au.CountryId)
                 .NotEmpty().WithMessage("'Country' is required");
             RuleFor(au => au.GenderId)
