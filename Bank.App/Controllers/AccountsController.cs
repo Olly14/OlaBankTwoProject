@@ -128,7 +128,7 @@ namespace Bank.App.Controllers
 
             models = PopulateUriKeyWithId(models);
 
-            //ViewBag.AppUserIdEncoded = GuidEncoder.Encode((models.FirstOrDefault(m => m.AppUserId != string.Empty)).AppUserId.ToString());
+            models = await PopulateAccountTypesAsync(models);
 
             return View("UserAccounts", models);
 
@@ -145,6 +145,7 @@ namespace Bank.App.Controllers
              var results = _mapper.Map<IEnumerable<AccountViewModel>>(await _accountRepository.FindAccountsByAccountTypeAsync("Current Account"));
             results = await PopulateOnwerNamesAsync(results);
             results = PopulateUriKeyWithId(results);
+            results = await PopulateAccountTypesAsync(results);
             return View(results);
         }
 
@@ -158,6 +159,7 @@ namespace Bank.App.Controllers
             var results = _mapper.Map<IEnumerable<AccountViewModel>>(await _accountRepository.FindAccountsByAccountTypeAsync("Saving Account"));
             results = await PopulateOnwerNamesAsync(results);
             results = PopulateUriKey(results);
+            results = await PopulateAccountTypesAsync(results);
             return View(results);
         }
 
