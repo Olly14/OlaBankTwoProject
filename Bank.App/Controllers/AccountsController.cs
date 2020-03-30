@@ -75,6 +75,8 @@ namespace Bank.App.Controllers
 
         }
 
+
+        [Authorize(Roles ="Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Index()
         {
             await PopulateViewBagForDropDownLists();
@@ -132,7 +134,10 @@ namespace Bank.App.Controllers
 
         }
 
+
+
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<ActionResult<IEnumerable<AccountViewModel>>> CurrentAccounts()
         {
 
@@ -145,6 +150,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<ActionResult<IEnumerable<AccountViewModel>>> SavingAccounts()
         {
 
@@ -158,6 +164,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public ActionResult AddAccount(string id)
         {
             return RedirectToAction("Create", new {id});
@@ -165,6 +172,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Create(string id)
         {
             var decryptedAppUserId = GuidEncoder.Decode(id).ToString();
@@ -229,6 +237,7 @@ namespace Bank.App.Controllers
         
         
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")] 
         public async Task<IActionResult> Edit(string id)
         {
 
@@ -284,6 +293,7 @@ namespace Bank.App.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Delete(string id)
         {
             //await PopulateViewBagForDropDownLists();
@@ -308,6 +318,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> AddInterest(string id)
         {
 
@@ -329,6 +340,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager")]
         public async Task<ActionResult<AccountViewModel>> BlockAccount(string id)
         {
             var decryptedId = GuidEncoder.Decode(id);
@@ -345,6 +357,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager")]
         public async Task<ActionResult<AccountViewModel>> UnBlockAccount(string id)
         {
             var decryptedId = GuidEncoder.Decode(id);
@@ -364,6 +377,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> CreditAccount(string id)
         {
             //needs to implement update function
@@ -436,6 +450,7 @@ namespace Bank.App.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> DebitAccount(string id)
         {
             //needs to implement update function
@@ -507,6 +522,7 @@ namespace Bank.App.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> TransferFund(string Id)
         {
             string accTypeId;
@@ -552,6 +568,7 @@ namespace Bank.App.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> TransferFund(AccountTransactionViewModel model)
         {
             if (ModelState.IsValid)

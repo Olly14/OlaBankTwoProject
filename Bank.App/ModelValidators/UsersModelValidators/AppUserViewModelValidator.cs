@@ -35,13 +35,13 @@ namespace Bank.App.ModelValidators.UserModelValidators
                 RuleFor(au => au.Postcode)
                     .NotEmpty().WithMessage("The Postcode is required")
                     .Matches("^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$").WithMessage("The Postcode must UK pattern");
-                //RuleFor(au => au.DateOfBirth)
-                //    .NotEmpty().WithMessage(" 'Date Of Birth' is required")
-                //    .Length(3, 7).WithMessage(" 'Date Of Birth' must be between 3 to 7 characters inclusive");
-                //RuleFor(au => au.Email)
-                //    .NotEmpty().WithMessage("'Email' is required")
-                //    .Matches("^([a - zA - Z0 - 9_\\-\\.] +)@((\\[[0 - 9]{ 1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a - zA - Z0 - 9\\-]+\\.)+))([a - zA - Z]{2,4}|[0-9]{1,3})(\\]?)$")
-                //    .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
+                RuleFor(au => au.DateOfBirth)
+                    .NotEmpty().WithMessage(" 'Date Of Birth' is required")
+                    .Matches(@"^[\d][\d]/[\d][\d]/[\d][\d][\d][\d]$").WithMessage(" 'Date Of Birth' must beof this format DD/MM/YYYY")
+                RuleFor(au => au.Email)
+                    .NotEmpty().WithMessage("'Email' is required")
+                    .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+                    .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
                 RuleFor(au => au.CountryId)
                     .NotEmpty().WithMessage("'Country' is required");
                 RuleFor(au => au.GenderId)
@@ -72,10 +72,10 @@ namespace Bank.App.ModelValidators.UserModelValidators
                     .Matches("^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$").WithMessage("The Postcode must UK pattern");
                 RuleFor(au => au.DateOfBirth)
                     .NotEmpty().WithMessage(" 'Date Of Birth' is required")
-                    .Length(3, 7).WithMessage(" 'Date Of Birth' must be between 3 to 7 characters inclusive");
+                    .Matches(@"^[\d][\d]/[\d][\d]/[\d][\d][\d][\d]$").WithMessage(" 'Date Of Birth' must beof this format DD/MM/YYYY");
                 RuleFor(au => au.Email)
                     .NotEmpty().WithMessage("'Email' is required")
-                    .Matches("^([a - zA - Z0 - 9_\\-\\.] +)@((\\[[0 - 9]{ 1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a - zA - Z0 - 9\\-]+\\.)+))([a - zA - Z]{2,4}|[0-9]{1,3})(\\]?)$")
+                    .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
                     .WithMessage("'Email' must be of email format such at something@domain.nameOfOrganisation");
                 RuleFor(au => au.CountryId)
                     .NotEmpty().WithMessage("'Country' is required");

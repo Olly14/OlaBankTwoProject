@@ -68,7 +68,7 @@ namespace Bank.App.Controllers
             _appUserIsHashed = false;
         }
 
-
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Index()
         {
 
@@ -92,6 +92,7 @@ namespace Bank.App.Controllers
 
         }
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Create()
         {
             return RedirectToAction("Registration", "Registrations");
@@ -187,6 +188,7 @@ namespace Bank.App.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> Delete(string id)
         {
             var decryptedId = GuidEncoder.Decode(id);
@@ -212,6 +214,7 @@ namespace Bank.App.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> BlockUserApp(string id)
         {
             var decryptedId = GuidEncoder.Decode(id);
@@ -222,6 +225,7 @@ namespace Bank.App.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Bank Admin, Bank Manager, Bank Customer Advisor")]
         public async Task<IActionResult> UnBlockUserApp(string id)
         {
             var decryptedId = GuidEncoder.Decode(id);

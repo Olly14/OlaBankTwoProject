@@ -7,11 +7,7 @@ namespace Bank.App.Utilities
 {
     public class RegularExpressions
     {
-        public const string CellPhoneE164 = @"^\+[1-9][0-9]{10,15}$";
 
-        public const string CellPhone = @"^[0-9\-\s]{10,15}$";
-        public const string ExtentionOrPhone = @"^[0-9\-\s]{1,15}$";
-        public const string CellPhoneNumbersOnly = @"^[0-9]{10,15}$";
 
         public const string Telephone = @"^[0\+][\d\s\-\(\)]{10,25}$";
 
