@@ -37,7 +37,7 @@ namespace Bank.App.ModelValidators.UserModelValidators
                     .Matches("^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$").WithMessage("The Postcode must UK pattern");
                 RuleFor(au => au.DateOfBirth)
                     .NotEmpty().WithMessage(" 'Date Of Birth' is required")
-                    .Matches(@"^[\d][\d]/[\d][\d]/[\d][\d][\d][\d]$").WithMessage(" 'Date Of Birth' must beof this format DD/MM/YYYY")
+                    .Matches(@"^[\d][\d]/[\d][\d]/[\d][\d][\d][\d]$").WithMessage(" 'Date Of Birth' must beof this format DD/MM/YYYY");
                 RuleFor(au => au.Email)
                     .NotEmpty().WithMessage("'Email' is required")
                     .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
