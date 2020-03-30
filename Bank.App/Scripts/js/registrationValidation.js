@@ -225,7 +225,7 @@
         }
     }
     var validatePhoneNumberMatches = function () {
-        var requiredPattern = new RegExp("^[0\+][\d\s\-\(\)]{10,25}$");
+        var requiredPattern = new RegExp("^[0\+][\d\s\-\(\\)]{10,25}$");
         var isAMatch = requiredPattern.test($('#PhoneNumberInputId'));
         if (!isAMatch) {
 
