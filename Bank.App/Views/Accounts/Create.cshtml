@@ -1,0 +1,118 @@
+﻿@model Bank.App.Models.AccountViewModel
+
+@inject SignInManager<AppUser> signInManager
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "Create";
+}
+
+
+<style>
+    .inputFieldError {
+        border: red;
+        background-color: #FFEEEE
+    }
+
+    .idHelpBlockErrorMsgInRed {
+        color: red
+    }
+</style>
+<h2>Create</h2>
+
+<h4>Account Registration</h4>
+<hr />
+
+<div class="row">
+    <div class="maximumAccountAcquired idHelpBlockErrorMsgInRed hidden" id="maximumAccountAcquiredId">
+        <h4> Maximum number of accounts has been reached.</h4>
+    </div>
+    <div class="col-md-4 maximumAccountNotAcquired hidden" id="maximumAccountNotAcquiredId">
+        <form asp-action="Create" asp-antiforgery="true" class="CreateForm">
+
+            @Html.HiddenFor(m => m.UriKey)
+            @Html.HiddenFor(m => m.AccUriKey)
+            @Html.HiddenFor(m => m.AppUserEncoded)
+            @Html.HiddenFor(m => m.IdEncoded)
+            @Html.HiddenFor(m => m.NumberOfAccounts)
+            @Html.HiddenFor(m => m.NumberOfAccountsAllowed)
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="AccountTypeId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.AccountTypeId,
+                    new SelectList(ViewBag.AccountTypes, "AccountTypeId", "Type"),
+                    "--Select Account Type--"
+                    , new { @class = "dropdown-header AccountTypeIdInput", id = "AccountTypeIdInputId" })
+
+                <p id="help-block-id-AccountTypeInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'AccountType Type' is required.</p>
+                <span asp-validation-for="AccountTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OpeningBalance" class="control-label"></label>
+                <input asp-for="OpeningBalance" class="form-control OpeningBalanceInput" id="OpeningBalanceInputId" />
+
+                <p id="help-block-id-OpeningBalanceId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Opening Balance' is required.</p>
+                <span asp-validation-for="OpeningBalance" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CurrencyId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CurrencyId,
+                    new SelectList(ViewBag.Currencies, "CurrencyId", "Type"),
+                    "--Select Currency--", new { @class = "dropdown-header CurrencyIdInput", id = "CurrencyIdInputId" })
+
+                <p id="help-block-id-CurrencyId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Currency Type' is required.</p>
+                <span asp-validation-for="CurrencyId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default submitBtn" id="submitBtnId" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="UserAccountsByAccountId" asp-route-id="@Model.AccUriKey" class="btn btn-primary">Back to List</a>
+    }
+</div>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/js/CreateAndAddManagementAndValidation.js"></script>
+    <script>
+        $(document).ready(function () {
+            createAndAddManagementAndValidation.init();
+        });
+    </script>
+}

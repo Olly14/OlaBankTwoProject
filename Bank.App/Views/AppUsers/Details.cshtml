@@ -1,0 +1,105 @@
+﻿@inject SignInManager<AppUser> signInManager
+
+@model Bank.App.Models.AppUserViewModel
+
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "Details";
+}
+@Html.Hidden("Urikey")
+<h2>Details</h2>
+
+<div>
+    <h4>AppUser</h4>
+    @Html.Hidden("Urikey")
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstLineOfAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstLineOfAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondLineOfAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecondLineOfAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Town)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Town)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country.CountryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender.Type)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.UriKey">Edit</a> |
+
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-action="AppUserIndex" asp-route-id="@Model.UriKey">Back to List</a>
+    }
+
+
+</div>

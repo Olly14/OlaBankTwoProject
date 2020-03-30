@@ -1,0 +1,172 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model Bank.App.Models.AppUserViewModel
+@inject SignInManager<AppUser> signInManager
+
+
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-id="Model.Urikey" asp-antiforgery="true">
+
+            @Html.Hidden("Urikey")
+            @Html.Hidden("UiControl")
+            @Html.Hidden("Id")
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstLineOfAddress" class="control-label"></label>
+                <input asp-for="FirstLineOfAddress" class="form-control" />
+                <span asp-validation-for="FirstLineOfAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondLineOfAddress" class="control-label"></label>
+                <input asp-for="SecondLineOfAddress" class="form-control" />
+                <span asp-validation-for="SecondLineOfAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Town" class="control-label"></label>
+                <input asp-for="Town" class="form-control" />
+                <span asp-validation-for="Town" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Postcode" class="control-label"></label>
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Countries, "CountryId", "CountryName"), new { })
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GenderId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.GenderId, new SelectList(ViewBag.Genders, "GenderId", "Type"), new { })
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+
+
+                <div class="card">
+                    <div calss="card-header">
+                        <h3>User Roles</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Roles.Any())
+                        {
+                            foreach (var role in Model.Roles)
+                            {
+                                <h5 class="card-title">@role</h5>
+                            }
+                        }
+                        else
+                        {
+                            <h5 class="card-title">
+                                There is no role at the moment
+                            </h5>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+                        {
+
+                            <a asp-action="Roles" asp-controller="Administration" class="btn btn-primary">Manage Roles</a>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div calss="card-header">
+                        <h3>All Claims</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Claims.Any())
+                        {
+                            foreach (var claim in Model.Claims)
+                            {
+                                <h5 class="card-title">@claim</h5>
+                            }
+                        }
+                        else
+                        {
+                            <h5 class="card-title">
+                                There is no claim at the moment
+                            </h5>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+                        {
+                            <a asp-action="Roles" asp-controller="Administration" class="btn btn-primary">Manage Claims</a>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-action="AppUserIndex" asp-route-id="@Model.UriKey">Back to List</a>
+    }
+
+</div>
+

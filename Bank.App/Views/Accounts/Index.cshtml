@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Bank.App.Models.AccountViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@foreach (var user in @Model)
+{
+    @Html.Hidden("UriKey");
+    @Html.Hidden("AccUriKey");
+}
+<h2>Accounts</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.AccountOwner)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.AccountTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfAccounts)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IsBlocked)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningDate)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountOwner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountTypeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfAccounts)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBlocked)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningDate)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AccUriKey }, new { @class = "btn btn-danger" })
+                </td>
+                <td>
+                    @Html.ActionLink("Add Account", "AddAccount", new { id = item.UriKey }, new { @class = "btn btn-primary deleteBtn", id = "deleteBtnId" })
+                </td>
+                <td>
+                    @Html.ActionLink("Accounts Transfer", "TransferFund", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                </td>
+                <td>
+                    @Html.ActionLink("Credit Account", "CreditAccount", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                </td>
+                <td>
+                    @Html.ActionLink("Debit Account", "DebitAccount", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                <td>
+                    @Html.ActionLink("Add Interest", "AddInterest", new { id = item.AccUriKey }, new { @class = "btn btn-primary" })
+                </td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/js/crudAccountManagementAndValidationModel.js"></script>
+    <script>
+        $(document).ready(function () {
+            crudAccountManagementAndValidationModel.init();
+        });
+    </script>
+
+
+}

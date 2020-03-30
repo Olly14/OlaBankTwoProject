@@ -1,0 +1,79 @@
+﻿@model RoleViewModel
+
+
+@{
+    ViewData["Title"] = "CreateRole";
+}
+
+<h2>Create New Role</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-antiforgery="true">
+
+            @Html.Hidden("Urikey")
+
+            <div class="form-group">
+                <label asp-for="Id" class="control-label idLabel hidden"></label>
+                <input asp-for="Id" class="form-control hidden idTextBox" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label roleNameLabel hidden"></label>
+                <input asp-for="Name" class="form-control roleNameTextBox" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="RoleUsers" class="control-label roleUsersLabel hidden"></label>
+                <input asp-for="RoleUsers" class="form-control hidden roleUsersTextBox" />
+                <span asp-validation-for="RoleUsers" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default createEditRoleBtn" id="createEditRoleBtnId" />
+            </div>
+
+            <br />
+            <br />
+            <div class="card mb-3">
+                <div class="card-header">
+                    User in this roles
+                </div>
+                <div class="card-body">
+                    @if (Model.RoleUsers.Any())
+                    {
+                        foreach (var user in Model.RoleUsers)
+                        {
+                            <h5 class="card-title">@user</h5>
+                        }
+                    }
+                    else
+                    {
+                        <h5 class="card-title">There are no users linked to this role at the moment</h5>
+                    }
+                </div>
+            </div>
+        </form>
+        <div class="card-footer">
+            <br />
+            <div class="card-footer">
+                <a asp-action="AddOrRemoveUserInRoles" asp-controller="Administration" asp-route-urikey="@Model.UriKey" class="btn btn-primary" style="width:auto">Add Or Remove User</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{ 
+    <script  src= "~/Scripts/js/RoleViewManagementAndValidation.js"></script>
+<script>
+    $(document).ready(function () {
+        roleViewManagementAndValidation.init();
+    });
+</script>
+
+}

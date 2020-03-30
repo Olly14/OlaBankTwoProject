@@ -1,0 +1,93 @@
+﻿@model List<UserRoleViewModel>
+
+@{
+    ViewData["Title"] = "AddOrRemoveUserInRoles";
+    var roleId = ViewData["UriKey"];
+    var size = Model.ToList().Count;
+
+
+}
+
+<h2>AddOrRemoveUserInRoles</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<form method="post"  asp-route-roleId="@roleId"class="form-controf">
+    
+    <div class="card">
+        <div class="card-header">
+            <h2>Add or Remove users from this role</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < @size; i++)
+            {
+            <div class="form-chech m-1">
+                <input type="hidden" asp-for="@Model[i].UserId" />
+                <input type="hidden" asp-for="@Model[i].UserName" />
+                <input type="hidden" asp-for="@Model[i].Urikey" />
+                @*@Html.Hidden()
+                @Html.Hidden(Model[i].UserName)
+                @Html.Hidden(Model[i].Urikey)*@
+                <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                <label class="form-check-label" asp-for="@Model[i].IsSelected">@Model[i].UserName</label>
+            </div>
+            }
+        </div>
+
+
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+            <input asp-action="EditRole" asp-controller="Administration" asp-route-roleId="@roleId" type="submit" value="Cancel" class="btn btn-primary" style="width:auto" />
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CountryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CountryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

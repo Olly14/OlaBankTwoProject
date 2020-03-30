@@ -1,0 +1,150 @@
+﻿@model AccountTransactionViewModel
+
+
+@inject SignInManager<AppUser> signInManager
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "Transfer Fund";
+}
+<style>
+    .inputFieldError {
+        border: red;
+        background-color: #FFEEEE
+    }
+
+    .idHelpBlockErrorMsgInRed {
+        color: red
+    }
+</style>
+@Html.HiddenFor(m => m.TxnUriKey)
+@Html.HiddenFor(m => m.AppUserUriKey)
+@Html.HiddenFor(m => m.TxnTypeUriKey)
+@Html.HiddenFor(m => m.AccUriKey)
+@Html.HiddenFor(m => m.AccountTypeIdUriKey)
+@Html.HiddenFor(m => m.UiControl)
+@Html.HiddenFor(m => m.NumberOfAccounts)
+<h2 id="header2Id" class="header2Id">Transfer Fund</h2>
+
+<h4 id="header4Id" class="header4Id">Transfer Fund between Accounts</h4>
+<hr />
+<div class="row">
+    <div class="hidden idHelpBlockErrorMsgInRed" id="onlyOneAccountId">
+        <h5>You only have one account at the moment, therefore no accounts transfer is possible</h5>
+    </div>
+    <div class="col-md-8 hidden" id="MoreThanOneAccountId">
+
+        <form method="post" asp-antiforgery="true" class="TransactionForm @*hidden*@" id="TransactionFormId">
+
+            @Html.HiddenFor(m => m.TxnUriKey)
+            @Html.HiddenFor(m => m.AppUserUriKey)
+            @Html.HiddenFor(m => m.TxnTypeUriKey)
+            @Html.HiddenFor(m => m.AccUriKey)
+            @Html.HiddenFor(m => m.AccountTypeIdUriKey)
+            @Html.HiddenFor(m => m.UiControl)
+            @Html.HiddenFor(m => m.NumberOfAccounts)
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="TransactionTypeId" class="control-label" id="TransactionTypeIdLabel"></label>
+                @Html.DropDownListFor(m => m.TransactionTypeId,
+                    new SelectList(ViewBag.TransactionTypes, "TransactionTypeId", "Type"),
+                    "--Select Type--", new { id = "TransactionTypeIdInputId", @class = "TransactionTypeIdInput", required = true, data_val_required = "Waoh put somthing there for me jo" })
+
+                <p id="help-block-id-TransactionTypeIdInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Transaction Type' is required.</p>
+                <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AccountToCredit" class="control-label hidden AccountToCreditLabel" id="AccountToCreditLabelId"></label>
+                @Html.DropDownListFor(m => m.AccountToCredit,
+                    new SelectList(ViewBag.AccountTypesLeftForfundTransfer, "AccountTypeId", "Type"),
+                    "--Select Type--", new { id = "AccountToCreditInputId", @class = "AccountToCreditInput hidden" })
+
+                <p id="help-block-id-AccountToCreditInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Account To Credit' is required</p>
+                <span asp-validation-for="AccountToCredit" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AccountToDebit" class="control-label hidden AccountToDebitLabel" id="AccountToDebitLabelId"></label>
+                @Html.DropDownListFor(m => m.AccountToDebit,
+                    new SelectList(ViewBag.AccountTypesLeftForfundTransfer, "AccountTypeId", "Type"),
+                    "--Select Type--", new { id = "AccountToDebitInputId", @class = "AccountToDebitInput hidden" })
+
+                <p id="help-block-id-AccountToDebitInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Account To Debit' is required</p>
+                <span asp-validation-for="AccountToDebit" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OrderByTypeId" class="control-label" id="OrderByTypeIdLabel"></label>
+                @Html.DropDownListFor(m => m.OrderByTypeId,
+                    new SelectList(ViewBag.OrderByTypes, "OrderByTypeId", "Type"),
+                    "--Select Type--", new { id = "OrderByTypeIdInputId" })
+
+                <p id="help-block-id-OrderByTypeIdInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Order By Type' is required</p>
+                <span asp-validation-for="OrderByTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AmountToCredit" class="control-label" id="AmountToCreditLabel"></label>
+                <input asp-for="AmountToCredit" class="form-control" id="AmountToCreditInputId" />
+
+                <p id="help-block-id-AmountToCreditInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Amount To Credit' is required</p>
+                <p id="help-block-id-LessThanTenAmountToCreditInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Amount To Credit' must be greater than 10</p>
+                <span asp-validation-for="AmountToCredit" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reference" class="control-label" id="ReferenceLabel"></label>
+                <input asp-for="Reference" class="form-control" id="ReferenceInputId" />
+
+                <p id="help-block-id-ReferenceInputId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Reference' is required</p>
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <input type="button" value="Create" class="btn btn-default  creditDebitTransferBtn" id="creditDebitTransferBtnId" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="UserAccountsByAccountId" asp-route-id="@Model.AccUriKey" class="btn btn-primary">Back to List</a>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/js/AccountTransactionViewModelUIManagementAndValidation.js"></script>
+    <script>
+        $(document).ready(function () {
+            accountTransactionViewModelUIManagementAndValidation.init();
+        });
+    </script>
+}

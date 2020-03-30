@@ -1,0 +1,102 @@
+﻿@model Bank.App.Models.AccountViewModel
+
+@inject SignInManager<AppUser> signInManager
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Edit Account of @Model.AccountOwner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UriKey" />
+            <input type="hidden" asp-for="AccUriKey" />
+            <input type="hidden" asp-for="UiControl" />
+            <div class="form-group">
+                <label asp-for="PersonalAccountNumber" class="control-label PersonalAccountNumberLabel" id="PersonalAccountNumberInputId"></label>
+                <input asp-for="PersonalAccountNumber" class="form-control PersonalAccountNumberInput" id="PersonalAccountNumberInputId" />
+                <span asp-validation-for="PersonalAccountNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CurrentBalance" class="control-label CurrentBalanceLabel"></label>
+                <input asp-for="CurrentBalance" class="form-control CurrentBalanceInput" id="CurrentBalanceInputId" />
+                <span asp-validation-for="CurrentBalance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpeningBalance" class="control-label OpeningBalanceLabel"></label>
+                <input asp-for="OpeningBalance" class="form-control OpeningBalanceInput" id="OpeningBalanceInputId" />
+                <span asp-validation-for="OpeningBalance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpeningDate" class="control-label OpeningDateLabel"></label>
+                <input asp-for="OpeningDate" class="form-control OpeningDateInput" id="OpeningDateInputId" />
+                <span asp-validation-for="OpeningDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
+                    </label>
+                </div>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="AppUserId" class="control-label"></label>
+            <select asp-for="AppUserId" class="form-control" asp-items="ViewBag.AppUserId"></select>
+            <span asp-validation-for="AppUserId" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="AccountTypeId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.AccountTypeId, new SelectList(ViewBag.AccountTypes, "AccountTypeId", "Type"), new { })
+                <span asp-validation-for="AccountTypeId" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="CurrencyId" class="control-label"></label>
+            @Html.DropDownListFor(m => m.CurrencyId, new SelectList(ViewBag.AccountTypes, "CurrencyId", "CurrencyName"), new { })
+            <span asp-validation-for="CurrencyId" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="UserAccountsByAccountId" asp-route-id="@Model.UriKey" class="btn btn-primary">Back to List</a>
+    }
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/js/crudAccountManagementAndValidationModel.js"></script>
+    <script>
+        $(document).ready(function () {
+            crudAccountManagementAndValidationModel.init();
+        });
+    </script>
+
+}

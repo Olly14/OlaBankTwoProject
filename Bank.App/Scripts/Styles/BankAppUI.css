@@ -1,0 +1,8 @@
+﻿.inputFieldError {
+    border: red;
+    background-color: #FFEEEE
+}
+
+.idHelpBlockErrorMsgInRed {
+    color: red
+}

@@ -1,0 +1,90 @@
+﻿@model Bank.App.Models.AccountTransactionViewModel
+
+@inject SignInManager<AppUser> signInManager
+@{
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_CustomerLayout";
+    }
+    ViewData["Title"] = "CreditAccount";
+}
+
+<h2>CreditAccount</h2>
+
+<h4>AccountTransaction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreditAccount">
+            @Html.HiddenFor(m => m.TxnTypeUriKey)
+            @Html.HiddenFor(m => m.AccUriKey)
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+            <div class="form-group">
+                <label asp-for="OrderByTypeId" class="control-label"></label>
+                <select asp-for="OrderByTypeId" class="form-control" asp-items="ViewBag.OrderByTypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountToDebit" class="control-label"></label>
+                <input asp-for="AccountToDebit" class="form-control" />
+                <span asp-validation-for="AccountToDebit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountToCredit" class="control-label"></label>
+                <input asp-for="AccountToCredit" class="form-control" />
+                <span asp-validation-for="AccountToCredit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmountToCredit" class="control-label"></label>
+                <input asp-for="AmountToCredit" class="form-control" />
+                <span asp-validation-for="AmountToCredit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reference" class="control-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfTransaction" class="control-label"></label>
+                <input asp-for="DateOfTransaction" class="form-control" />
+                <span asp-validation-for="DateOfTransaction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBalanceOfDebitedAccount" class="control-label"></label>
+                <input asp-for="NewBalanceOfDebitedAccount" class="form-control" />
+                <span asp-validation-for="NewBalanceOfDebitedAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBalanceOfCreditedAccount" class="control-label"></label>
+                <input asp-for="NewBalanceOfCreditedAccount" class="form-control" />
+                <span asp-validation-for="NewBalanceOfCreditedAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBalanceAccountToCredit" class="control-label"></label>
+                <input asp-for="CurrentBalanceAccountToCredit" class="form-control" />
+                <span asp-validation-for="CurrentBalanceAccountToCredit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    {
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="UserAccountsByAccountId" asp-route-id="@Model.AccUriKey" class="btn btn-primary">Back to List</a>
+    }
+</div>
+

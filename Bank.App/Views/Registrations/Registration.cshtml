@@ -1,0 +1,226 @@
+﻿@model Bank.App.Models.RegistrationViewModel
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<style>
+    .inputFieldError {
+        border: red;
+        background-color: #FFEEEE
+    }
+
+    .idHelpBlockErrorMsgInRed {
+        color: red
+    }
+</style>
+
+<h2>Registration</h2>
+
+<h4>New AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Registration" asp-antiforgery="true" class="registrationForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label FirstNameLabel"></label>
+                <input asp-for="FirstName" class="form-control FirstNameInput" required="required" data-val-required="'Firstname' is required." . id="FirstNameInputId" />
+
+                <p id="help-block-id-FirstNameId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Firstname' is required.</p>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label LastNameLabel" id="LastNameLabelId"></label>
+                <input asp-for="LastName" class="form-control LastNameInput" id="LastNameInputId" />
+
+                <p id="help-block-id-LastNameId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'LastName' is required.</p>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstLineOfAddress" class="control-label FirstLineOfAddressLabel" id="FirstLineOfAddressLabel"></label>
+                <input asp-for="FirstLineOfAddress" class="form-control FirstLineOfAddressInput" id="FirstLineOfAddressInputId" />
+
+                <p id="help-block-id-FirstLineOfAddressId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'First Line Of Address' is required.</p>
+                <span asp-validation-for="FirstLineOfAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondLineOfAddress" class="control-label SecondLineOfAddressLabel" id="SecondLineOfAddressLabelId"></label>
+                <input asp-for="SecondLineOfAddress" class="form-control SecondLineOfAddressInput" id="SecondLineOfAddressInputId" />
+
+                <p id="help-block-id-SecondLineOfAddressId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Second Line Of Address' is required.</p>
+                <span asp-validation-for="SecondLineOfAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Town" class="control-label TownLabel"></label>
+                <input asp-for="Town" class="form-control TownInput" id="TownInputId" />
+
+                <p id="help-block-id-TownId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Town' is required.</p>
+                <span asp-validation-for="Town" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Postcode" class="control-label PostcodeLabel" id="PostcodeLabelId"></label>
+                <input asp-for="Postcode" class="form-control PostcodeLabel" id="PostcodeInputId" />
+
+                <p id="help-block-id-PostcodeId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Postcode' is required.</p>
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label DateOfBirthLabel" id="DateOfBirthLabelId"></label>
+                <input asp-for="DateOfBirth" class="form-control DateOfBirthInput" id="DateOfBirthInputId" />
+
+                <p id="help-block-id-DateOfBirthId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Date Of Birth' is required.</p>
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Countries, "CountryId", "CountryName"), "--Select Country--", new {@class="CountryIdInput", id="CountryIdInputId" })
+                <p id="help-block-id-CountryId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'CountryId' is required.</p>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GenderId" class="control-label GenderIdLabel"></label>
+                @Html.DropDownListFor(m => m.GenderId, new SelectList(ViewBag.Genders, "GenderId", "Type"),"--Select Country--", new { @class = "GenderIdInput", id="GenderIdInputId" })
+                <p id="help-block-id-GenderId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Gender Id' is required.</p>
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+
+                    <p id="help-block-id-UserNameId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Username' is required.</p>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="NormalizedUserName" class="control-label"></label>
+                    <input asp-for="NormalizedUserName" class="form-control" />
+                    <span asp-validation-for="NormalizedUserName" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="Email" class="control-label EmailLabel" id="EmailLabelId"></label>
+                <input asp-for="Email" class="form-control EmailLabel" id="EmailInputId" />
+
+                <p id="help-block-id-EmailId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Email' is required.</p>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="NormalizedEmail" class="control-label"></label>
+                    <input asp-for="NormalizedEmail" class="form-control" />
+                    <span asp-validation-for="NormalizedEmail" class="text-danger"></span>
+                </div>*@
+
+            @*<div class="form-group">
+                    <label asp-for="PasswordHash" class="control-label"></label>
+                    <input asp-for="PasswordHash" class="form-control" />
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecurityStamp" class="control-label"></label>
+                    <input asp-for="SecurityStamp" class="form-control" />
+                    <span asp-validation-for="SecurityStamp" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConcurrencyStamp" class="control-label"></label>
+                    <input asp-for="ConcurrencyStamp" class="form-control" />
+                    <span asp-validation-for="ConcurrencyStamp" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label PhoneNumberLabel" id="PhoneNumberLabelId"></label>
+                <input asp-for="PhoneNumber" class="form-control PhoneNumberInput" id="PhoneNumberInputId" />
+
+                <p id="help-block-id-PhoneNumberId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Phone number' is required.</p>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="PhoneNumberConfirmed" /> @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+                        </label>
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="TwoFactorEnabled" /> @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+                    </label>
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="LockoutEnd" class="control-label"></label>
+                    <input asp-for="LockoutEnd" class="form-control" />
+                    <span asp-validation-for="LockoutEnd" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="LockoutEnabled" /> @Html.DisplayNameFor(model => model.LockoutEnabled)
+                        </label>
+                    </div>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="AccessFailedCount" class="control-label"></label>
+                    <input asp-for="AccessFailedCount" class="form-control" />
+                    <span asp-validation-for="AccessFailedCount" class="text-danger"></span>
+                </div>*@
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label PasswordLabel" id="PasswordLabelId"></label>
+                        <input type="password"   asp-for="Password" class="form-control PasswordInput" id="PasswordInputId" />
+
+                        <p id="help-block-id-PasswordId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Password' is required.</p>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmedPassword" class="control-label ConfirmedPasswordLabel" id="ConfirmedPasswordLabelId"></label>
+                        <input type="password" asp-for="ConfirmedPassword" class="form-control ConfirmedPasswordInput" id="ConfirmedPasswordInputId" />
+
+                        <p id="help-block-id-ConfirmedPasswordId" class="help-block hidden text-danger idHelpBlockErrorMsgInRed">'Confirmed Password' is required.</p>
+                        <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="EmailConfirmed" /> @Html.DisplayNameFor(model => model.EmailConfirmed)
+                                </label>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default registrationBtn" id="registrationBtnId"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/js/registrationValidation.js"></script>
+    <script>
+        $(document).ready(function () {
+            registrationValidation.init();
+        });
+    </script>
+}

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Bank.App.Models.AppUserViewModel>
+@inject SignInManager<AppUser> signInManager
+@{
+    Layout = "_CustomerLayout";
+
+    ViewData["Title"] = "App Users";
+}
+
+
+@foreach (var user in @Model)
+{
+    @Html.Hidden("UriKey");
+    @Html.Hidden("AppUserIdEncoded");
+}
+
+<h2>Application Users</h2>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstLineOfAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondLineOfAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Town)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Postcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GenderId)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstLineOfAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondLineOfAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Town)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Postcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryIdValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GenderIdValue)
+                </td>
+                <td>
+                    <span>@Html.ActionLink("Edit", "Edit", new { @class = "btn btn-success", id = item.UriKey }, new { @class = "btn btn-primary" })</span>
+                </td>
+                <td>
+                    <span>@Html.ActionLink("Details", "Details", new { @class = "btn btn-success", id = item.UriKey }, new { @class = "btn btn-primary" })</span>
+                </td>
+                <td>
+                    <span>@Html.ActionLink("User Accounts", "UserAccounts", "Accounts", new { @class = "btn btn-success", userId = item.AppUserIdEncoded }, new { @class = "btn btn-primary" })</span>
+                </td>
+                <td>
+                    <span>@Html.ActionLink("Create New Bank Account", "Create", "Accounts", new { @class = "btn btn-success", id = item.UriKey }, new { @class = "btn btn-primary" })</span>
+                </td>
+                <td>
+                    <span>@Html.ActionLink("Delete", "Delete", new { @class = "btn btn-success", id = item.UriKey }, new { @class = "btn btn-danger" })</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
