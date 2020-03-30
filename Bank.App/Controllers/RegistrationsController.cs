@@ -20,7 +20,7 @@ namespace Bank.App.Controllers
         private readonly IRepository<AppUser> _appUserRepository;
         private readonly IDropDownListRepository<Country> _countryRepository;
         private readonly IDropDownListRepository<Gender> _genderRepository;
-        //private readonly IDropDownListRepository<Currency> _currencyRepository;
+
 
         private readonly IUnitOfWorkB<AppUser> _unitOfWorkAppUser;
         private readonly IMapper _mapper;
@@ -74,7 +74,7 @@ namespace Bank.App.Controllers
                 var createResult  = await _userManager.CreateAsync(newAppUser, newAppUser.Password);
                 if (createResult.Succeeded)
                 {
-                    if (_signInManager.IsSignedIn(User) && User.IsInRole(("Bank Admin")))
+                    if (_signInManager.IsSignedIn(User) && ( User.IsInRole(("Bank Admin")) || User.IsInRole(("Bank Manager")) || User.IsInRole(("Bank Customer Advisor")) )  )
                     {
                         return RedirectToAction("Index", "AppUsers");
                     }
@@ -98,15 +98,7 @@ namespace Bank.App.Controllers
         {
             return _mapper.Map<CountryViewModel>(await _countryRepository.FindAsync(countryId));
         }
-        //private async Task<IEnumerable<CurrencyViewModel>> GetCurrencsAsync()
-        //{
-        //    return _mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.FindAllAsync());
-        //}
 
-        //private async Task<CurrencyViewModel> GetCurrencyAsync(System.Guid currencyId)
-        //{
-        //    return _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(currencyId));
-        //}
         private async Task<IEnumerable<GenderViewModel>> GetGendersAsync()
         {
             return _mapper.Map<IEnumerable<GenderViewModel>>(await _genderRepository.FindAllAsync());

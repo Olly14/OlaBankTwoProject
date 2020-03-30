@@ -4,7 +4,7 @@
 
 
 @{
-    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
     {
         Layout = "_Layout";
     }
@@ -115,7 +115,7 @@
                         }
                     </div>
                     <div class="card-footer">
-                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
                         {
 
                             <a asp-action="Roles" asp-controller="Administration" class="btn btn-primary">Manage Roles</a>
@@ -144,7 +144,7 @@
                         }
                     </div>
                     <div class="card-footer">
-                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
                         {
                             <a asp-action="Roles" asp-controller="Administration" class="btn btn-primary">Manage Claims</a>
                         }
@@ -159,7 +159,7 @@
 </div>
 
 <div>
-    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
     {
         <a class="btn btn-primary" asp-action="Index">Back to List</a>
     }

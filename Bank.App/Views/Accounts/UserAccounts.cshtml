@@ -3,7 +3,7 @@
 
 
 @{
-    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+    if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
     {
         Layout = "_Layout";
     }

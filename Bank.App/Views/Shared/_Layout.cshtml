@@ -74,7 +74,7 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager")))
+                                            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
                                             {
                                                 <li>
                                                     <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
@@ -91,7 +91,7 @@
                                     </li>
                                     <li><a asp-area="" asp-controller="AppUsers" asp-action="Index">Users</a></li>
 
-                                    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") ))
+                                    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Bank Admin") || User.IsInRole("Bank Manager") || User.IsInRole("Bank Customer Advisor") ))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link text-dark" asp-controller="Administration" asp-action="Roles">Manage Roles</a>
