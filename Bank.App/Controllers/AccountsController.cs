@@ -103,7 +103,7 @@ namespace Bank.App.Controllers
 
             models = PopulateUriKeyWithId(models);
 
-            //ViewBag.AppUserIdEncoded = GuidEncoder.Encode((models.FirstOrDefault(m => m.AppUserId != string.Empty)).AppUserId.ToString());
+            models = await PopulateAccountTypesAsync(models);
 
             return View(models);
 
