@@ -689,6 +689,7 @@ namespace Bank.App.Controllers
 
             model.UriKey = GuidEncoder.Encode(model.AccountId.ToString());
 
+
             return model;
         }
 
