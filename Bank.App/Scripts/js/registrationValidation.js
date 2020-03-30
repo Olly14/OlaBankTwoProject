@@ -161,7 +161,7 @@
         }
     }
     var validateDateOfBirthMatches = function () {
-        var requiredPattern = new RegExp("^[\d][\d]/[\d][\d]/[\d][\d][\d][\d]$");
+        var requiredPattern = new RegExp("^(0[1-9]|[12][0-9]|3[01])[- \/.](0[1-9]|1[012])[- \/.](19|20)\d\d$");
         var isAMatch = requiredPattern.test($('#DateOfBirthInputId'));
         if (!isAMatch) {
 
@@ -203,7 +203,7 @@
         }
     }
     var validateEmailMatched = function () {
-        var requiredPattern = new RegExp("^[\d][\d]/[01][12]/[\d][\d][\d][\d]$");
+        var requiredPattern = new RegExp("^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
         var isAMatch = requiredPattern.test($('#EmailInputId'));
         if (!isAMatch) {
 
@@ -225,7 +225,7 @@
         }
     }
     var validatePhoneNumberMatches = function () {
-        var requiredPattern = new RegExp("^([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)$");
+        var requiredPattern = new RegExp("^[0\+][\d\s\-\(\)]{10,25}$");
         var isAMatch = requiredPattern.test($('#PhoneNumberInputId'));
         if (!isAMatch) {
 
@@ -247,7 +247,7 @@
         }
     }
     var validatePasswordMatches = function () {
-        var requiredPattern = new RegExp("^([a-zA-Z0-9@*#]{8,15})$");
+        var requiredPattern = new RegExp("^([a-zA-Z0-9@*#]{8,20})$");
         var isAMatch = requiredPattern.test($('#PasswordInputId'));
         if (!isAMatch) {
 
