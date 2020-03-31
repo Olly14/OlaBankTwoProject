@@ -101,7 +101,7 @@
         }
     }
     var validateSecondLineOfAddressLength = function () {
-        if ($('#FirstLineOfAddressInputId').val().length < 3 || $('#SecondLineOfAddressInputId').val().length > 20) {
+        if ($('#SecondLineOfAddressInputId').val().length < 3 || $('#SecondLineOfAddressInputId').val().length > 20) {
 
             SecondLineOfAddressLengthIsValid = false;
             $('#SecondLineOfAddressInputId').addClass("inputFieldError");
@@ -141,7 +141,7 @@
         }
     }
     var validatePostcodeMatched = function () {
-        if ($('#TownInputId').val().length < 3 || $('#PostcodeInputId').val().length > 20) {
+        if ($('#PostcodeInputId').val().length < 3 || $('#PostcodeInputId').val().length > 20) {
 
             PostcodeLengthIsValid = false;
             $('#PostcodeInputId').addClass("inputFieldError");
@@ -209,7 +209,7 @@
 
             EmailMatchedIsValid = false;
             $('#EmailInputId').addClass("inputFieldError");
-            $('#help-block-id-DateOfBirthId').removeClass("hidden");
+            $('#help-block-id-EmailId').removeClass("hidden");
         } else {
             EmailMatchedIsValid = true;
         }
@@ -259,7 +259,7 @@
         }
     }
     var validateConfirmedPasswordInput = function () {
-        if ($('#PhoneNumberInputId').val().length <= 0) {
+        if ($('#ConfirmedPasswordInputId').val().length <= 0) {
 
             ConfirmedPasswordInputIsValid = false;
             $('#ConfirmedPasswordInputId').addClass("inputFieldError");
