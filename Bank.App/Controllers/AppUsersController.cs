@@ -98,18 +98,6 @@ namespace Bank.App.Controllers
             return RedirectToAction("Registration", "Registrations");
         }
 
-        //[HttpPost]
-        //[AutoValidateAntiforgeryToken]
-        //public async Task<IActionResult> Create(AppUserViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _appUserRepository.AddAsync(_mapper.Map<AppUser>(model));
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View();
-        //}
 
         [HttpGet]
         public async Task<IActionResult> Details(string id)

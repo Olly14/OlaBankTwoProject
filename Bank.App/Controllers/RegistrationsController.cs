@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Bank.App.CustomSecurity;
 using Bank.App.Models;
 using Bank.Data.Infrastructure.Repository;
 using Bank.Data.Infrastructure.Repository.IDropDownListsRepository;
@@ -79,7 +80,7 @@ namespace Bank.App.Controllers
                         return RedirectToAction("Index", "AppUsers");
                     }
                     await _signInManager.SignInAsync(newAppUser, false);
-                    return RedirectToAction("Index", "AppUsers");
+                    return RedirectToAction("AppUserIndex", "AppUsers", new { id=  GuidEncoder.Encode(newAppUser.Id)});
                 }
                 foreach (var error in createResult.Errors)
                 {
