@@ -225,7 +225,7 @@
         }
     }
     var validatePhoneNumberMatches = function () {
-        var requiredPattern = new RegExp("^[0\+][\d\s\-\(\\)]{10,25}$");
+        var requiredPattern = new RegExp("^[\d]{10,25}$");
         var isAMatch = requiredPattern.test($('#PhoneNumberInputId'));
         if (!isAMatch) {
 
@@ -397,7 +397,7 @@
                     (firstNameInputBackgroundColour === 'rgb(255,238,238)')) {
                     firstNameInput.css("background", '#FFFFFF');
                 }
-                resetTransactionTypeIdInputRequiredError();
+                resetFirstNameInputRequiredError();
             }
 
         });;
@@ -697,17 +697,17 @@
             validatePostcodeInput();
             validatePostcodeMatched();
             validateDateOfBirthInput()
-            validateDateOfBirthMatches();
+            //validateDateOfBirthMatches();
             validateCountryIdInput();
             validateGenderIdInput();
             validateEmailInput();
-            validateEmailMatched();
+            //validateEmailMatched();
             validatePhoneNumberInput();
-            validatePhoneNumberMatches();
+            //validatePhoneNumberMatches();
             validatePasswordInput();
-            validatePasswordMatches();
+            //validatePasswordMatches();
             validateConfirmedPasswordInput();
-            validateConfirmedPasswordMatches();
+            //validateConfirmedPasswordMatches();
 
             var submitControl = FirstNameInputIsValid &&
                 FirstNameLengthIsValid &&
